@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hostel Mess Token</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #ffffff;
+        }
+
+        .box {
+            width: 350px;
+            margin: 50px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #114274;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #174a7e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Hostel Mess Token</h2>
+
+    <form action="result.jsp" method="post"
+          onsubmit="return checkForm()">
+
+        Student Name:
+        <input type="text" name="student" id="student" required>
+        Meal:
+        <select name="meal" id="meal" required>
+
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+        </select>
+        Date:
+        <input type="date" name="meal_date" id="meal_date" required>
+
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+<script>
+    let today = new Date();
+    today = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+        .toISOString().split("T")[0];
+
+    document.getElementById("meal_date").max = today;
+    document.getElementById("meal_date").value = today;
+
+    function checkForm() {
+        let student = document.getElementById("student").value.trim();
+        let meal = document.getElementById("meal").value;
+        let date = document.getElementById("meal_date").value;
+
+        if (student == "" || meal == "" || date == "") {
+            alert("Please fill all fields");
+            return false;
+        }
+
+        if (date > today) {
+            alert("Future date not allowed");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
+
